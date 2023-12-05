@@ -20,64 +20,65 @@ Base on what you’ve learned until now , create a project of your choosing. Imp
 
 
 1. **Task Management System:**
-    - **Overview:** Create a platform for managing tasks and projects within a team or organization.
-    - **Features:**
-        - User authentication and role-based access control.
-        - Task creation, assignment, and tracking.
-        - Project management with milestones.
-        - File uploads and comments on tasks.
-        - Notification system for task updates.
+- **Overview:** Create a platform for managing tasks and projects within a team or organization.
+- **Features:**
+- User authentication and role-based access control.
+- Task creation, assignment, and tracking.
+- Project management with milestones.
+- File uploads and comments on tasks.
+- Notification system for task updates.
 
 
-O**nline Learning Platform:**
+**Online Learning Platform:**
 
 - **Overview:** Develop a platform for online courses, quizzes, and educational resources.
 - **Features:**
-    - User registration and profile management.
-    - Course creation and enrollment.
-    - Quiz and assessment functionalities.
-    - Progress tracking and certificates.
+- User registration and profile management.
+- Course creation and enrollment.
+- Quiz and assessment functionalities.
+- Progress tracking and certificates.
 
 
 
 
 **Crowdfunding Platform:**
 
-    - **Overview:** Build a crowdfunding website where users can create campaigns and seek financial support for their projects.
-    - **Features:**
-        - User profiles with project history.
-        - Campaign creation and customization.
-        - Payment integration for contributions.
-        - Progress tracking and updates.
+- **Overview:** Build a crowdfunding website where users can create campaigns and seek financial support for their projects.
+- **Features:**
+    - User profiles with project history.
+    - Campaign creation and customization.
+    - Payment integration for contributions.
+    - Progress tracking and updates.
 
 **Job Board and Recruitment System:**
 
-    - **Overview:** Develop a platform for job seekers and employers to connect.
-    - **Features:**
-        - User profiles with resumes.
-        - Job posting and application functionalities.
-        - Search and filter options for jobs.
-        - Employer dashboards for managing postings.
+- **Overview:** Develop a platform for job seekers and employers to connect.
+- **Features:**
+    - User profiles with resumes.
+    - Job posting and application functionalities.
+    - Search and filter options for jobs.
+    - Employer dashboards for managing postings.
 
 
 **Inventory Management System:**
 
-    - **Overview:** Build a system for tracking and managing inventory for businesses.
-    - **Features:**
-        - User authentication with roles (e.g., admin, staff).
-        - Product catalog with stock levels.
-        - Order processing and tracking.
-        - Reporting and analytics.
+- **Overview:** Build a system for tracking and managing inventory for businesses.
+- **Features:**
+    - User authentication with roles (e.g., admin, staff).
+    - Product catalog with stock levels.
+    - Order processing and tracking.
+    - Reporting and analytics.
 
 
 **Recipe Sharing Platform:**
 
-    - **Overview:** Create a platform where users can share and discover recipes.
-    - **Features:**
-        - User accounts with saved recipes.
-        - Recipe creation and editing.
-        - Search and categorization of recipes.
-        - User ratings and reviews.
+- **Overview:** Create a platform where users can share and discover recipes.
+- **Features:**
+    - User accounts with saved recipes.
+    - Recipe creation and editing.
+    - Search and categorization of recipes.
+    - User ratings and reviews.
+      
 ## Resources:
 
 **Free high quality images :**
