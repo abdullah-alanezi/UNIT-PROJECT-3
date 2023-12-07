@@ -1,5 +1,5 @@
 {% extends 'main/base.html' %}
-
+{% load static %}
 
 {% block title %}Experts{% endblock %}
 
@@ -13,6 +13,10 @@
         </div>
 
         <div class="col">
+            {% for user in experts_users %}
+            {{user.username}}
+            {{user.email}}
+            {% endfor %}
             
         </div>
     </div>
