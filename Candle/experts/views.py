@@ -6,7 +6,10 @@ from django.contrib.auth import authenticate ,login,logout
 # Create your views here.
 
 def experts_view(request:HttpRequest):
+    try:
+        experts_users = User.objects.filter(groups__name='Experts')
+    except Exception:
+        pass
     
-    experts_users = User.objects.filter(groups__name='Experts')
     
     return render(request,'experts/experts.html',{'experts_users':experts_users})

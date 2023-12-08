@@ -26,6 +26,11 @@
                   <li class="nav-item">
                     <a class="nav-link" href="#">Pricing</a>
                   </li>
+                  {% if request.user.is_authenticated %}
+                  <li><a class="nav-link m-0" href="{% url 'users:profile_view'  request.user.id %}">welcome, {{ request.user.username }}</a>
+                  </li>
+                  <li><a href="{% url 'users:logout_view' %}">logout</a></li>
+                  {% else %}
                   <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                       Join Us
@@ -36,6 +41,7 @@
                       <li><a class="dropdown-item" href="#">Something else here</a></li>
                     </ul>
                   </li>
+                  {% endif %}
                 </ul>
               </div>
             </div>

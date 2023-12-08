@@ -11,6 +11,6 @@ class ExpertProfile(models.Model):
 
 
 class ExpertExperience(models.Model):
-    expert_profile= models.ForeignKey(ExpertProfile,on_delete=models.CASCADE)
+    user= models.ForeignKey(User,on_delete=models.CASCADE)
     experience = models.CharField(max_length=255)
     experience_years =models.IntegerField()

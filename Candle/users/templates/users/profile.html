@@ -4,4 +4,62 @@
 
 {% block content %}
 
+<section>
+  <div class="container profile-container">
+    <div class="row">
+      <div class="col-md-4">
+        <!-- User Avatar -->
+        <img src="{{user.expertprofile.avatar.url}}" alt="User Avatar" class="img-fluid rounded-circle avatar mb-3">
+      </div>
+      <div class="col-md-8">
+        <!-- User Bio -->
+        
+        <h2 class="profile-title">Profile{{user.username}}</h2>
+        
+        <p class="bio-text">Bio:{{user.expertprofile.bio}}</p>
+  
+        <!-- User Name -->
+        <div class="row">
+          <div class="col-md-6">
+            <p class="name-label"><strong>First Name: </strong>{{user.first_name}}</p>
+          </div>
+          <div class="col-md-6">
+            <p class="name-label"><strong>Last Name: </strong>{{user.last_name}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% if user in experts %}  
+<div class="section">
+    <div class="container cc-education">
+      <div class="h4 text-center mb-4 title">Experiance</div>
+      {% for ex in experiences %}
+  
+      <div class="card">
+        <div class="row">
+          <div class="col-md-3 bg-secondary" data-aos="fade-right" data-aos-offset="50" data-aos-duration="500">
+            <div class="card-body cc-education-header">
+              
+              <div class="h5 text-center">{{ex.experience}}</div>
+            </div>
+          </div>
+          <div class="col-md-9" data-aos="fade-left" data-aos-offset="50" data-aos-duration="500">
+            <div class="card-body">
+              <div class="h5">experience years</div>
+              <p class="category">{{ex.experience_years}}</p>
+             
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      {% endfor %}
+  
+  
+   
+    </div>
+  </div>
+{% endif %}
 {% endblock %}
