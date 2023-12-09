@@ -13,10 +13,21 @@
       </div>
       <div class="col-md-8">
         <!-- User Bio -->
+        <div class="d-flex justify-content-between">
+          <div>
+            <h2 class="profile-title">{{user.username}}</h2>
+          </div>
+          <div>
+            <a class="btn btn-primary" href="{% url 'users:update_profile_view' %}">Update Profile</a>
+          </div>
+        </div>
         
-        <h2 class="profile-title">Profile{{user.username}}</h2>
-        
-        <p class="bio-text">Bio:{{user.expertprofile.bio}}</p>
+        <div class="row">
+          <div class="col-md-6">
+            <h5>Bio:</h5>
+            <p class="name-label">{{user.expertprofile.bio}}</p>
+          </div>
+       
   
         <!-- User Name -->
         <div class="row">

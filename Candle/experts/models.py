@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from courses.models import Course
 # Create your models here.
 
 class ExpertProfile(models.Model):
@@ -7,6 +8,8 @@ class ExpertProfile(models.Model):
     bio = models.TextField()
     avatar = models.ImageField(upload_to="images/",default="images/default.jpg")
     
+    
+
     
 
 

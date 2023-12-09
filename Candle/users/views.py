@@ -2,7 +2,8 @@ from django.shortcuts import render,redirect
 from django.http import HttpRequest
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate ,login,logout
-from experts.models import ExpertExperience
+from experts.models import ExpertExperience ,ExpertProfile
+from django.db import IntegrityError
 # Create your views here.
 
 def logup_view(request:HttpRequest):
@@ -47,5 +48,36 @@ def profile_view(request:HttpRequest,user_id):
 
 
 def update_profile_view(request:HttpRequest):
+    msg = None
 
-    return render(request,'users/update.html')
+    if request.method == "POST":
+        try:
+            if request.user.is_authenticated:
+                user : User = request.user
+                user.first_name = request.POST["first_name"]
+                user.last_name = request.POST["last_name"]
+                user.email = request.POST["email"]
+                user.save()
+
+                
+                try:
+                    profile = request.user.expertprofile
+                except Exception as e:
+                    profile = ExpertProfile(user=user, bio=request.POST["bio"])
+                    profile.save()
+
+
+                
+                if 'avatar' in request.FILES: profile.avatar = request.FILES["avatar"]
+                profile.bio = request.POST["bio"]
+                profile.save()
+
+                return redirect("users:profile_view", user_id = request.user.id)
+
+            else:
+                return redirect("users:login_view")
+        except IntegrityError as e:
+            msg = f"Please select another username"
+        except Exception as e:
+            msg = f"something went wrong {e}"
+    return render(request,'users/update.html',{'msg':msg})
