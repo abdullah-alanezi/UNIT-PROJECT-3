@@ -16,6 +16,7 @@
             {% for user in experts_users %}
             {{user.username}}
             {{user.email}}
+            {{ user.course.title}}
             {% endfor %}
             
         </div>

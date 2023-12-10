@@ -6,3 +6,8 @@ from django.http import HttpRequest
 def home_view(request:HttpRequest):
 
     return render(request,'main/home.html')
+
+
+def no_premissions(request:HttpRequest):
+
+    return render(request,'main/no_premissions.html')

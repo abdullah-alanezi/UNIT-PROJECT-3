@@ -4,7 +4,8 @@ from django.contrib.auth.models import User
 # Create your models here.
 
 class Course(models.Model):
-    user =models.ManyToManyField(User)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    subcriptions = models.ManyToManyField(User, related_name="subscriptions")
     title = models.CharField(max_length=255)
     image = models.ImageField(upload_to='images/',default="images/default.jpg")
 

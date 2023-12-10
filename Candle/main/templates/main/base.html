@@ -24,7 +24,7 @@
                     <a class="nav-link" href="{% url 'experts:experts_view' %}">Experts</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="#">Pricing</a>
+                    <a class="nav-link" href="{% url 'courses:all_courses' %}">View Courses</a>
                   </li>
                   {% if request.user.is_authenticated %}
                   <li><a class="nav-link m-0" href="{% url 'users:profile_view'  request.user.id %}">welcome, {{ request.user.username }}</a>
@@ -45,9 +45,17 @@
                 </ul>
 
               </div>
+              {% if request.user.is_authenticated and perms.courses.add_course %}
               <div>
-                <a class="nav-link" href="{% url 'courses:add_course_view' %}">add course</a>
+                <ul class="navbar-nav">
+                  <li><a class="nav-link" href="{% url 'courses:expert_course' %}">My courses</a></li>
+                  <li>
+                    <a class="nav-link" href="{% url 'courses:add_course_view' %}">add course</a>
+                  </li>
+                </ul>
+
               </div>
+              {% endif %}
             </div>
           </nav>
     </div>

@@ -1,0 +1,25 @@
+
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}All Courses{% endblock %}
+
+
+{% block content %}
+
+<div class="container" >
+    <div class="row">
+        {% if msg %}
+        {{msg}}
+        {% endif %}
+        <div class="col">
+            {% for course in courses %}
+            {{course.title}}
+            <img src="{{course.image.url}}" alt="">
+            {% endfor %}
+            
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block title %}No Permissions{% endblock %}
+{% block content %}
+
+<div class="text-center">
+    <div class="display-1">403</div>
+    <p class="lead">No Permissions</p>
+    <a class="btn btn-primary" href="{% url 'main:home_view' %}">Back to home page</a>
+</div>
+{% endblock %}
