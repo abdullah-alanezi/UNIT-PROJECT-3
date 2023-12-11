@@ -14,9 +14,10 @@
 
         <div class="col">
             {% for user in experts_users %}
-            {{user.username}}
+            <a href="{% url 'users:profile_view' user.id %}">{{user.username}}</a>
             {{user.email}}
-            {{ user.course.title}}
+            
+            
             {% endfor %}
             
         </div>

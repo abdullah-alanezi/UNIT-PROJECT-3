@@ -14,7 +14,7 @@
         {% endif %}
         <div class="col">
             {% for course in expert_courses %}
-            {{course.title}}
+            <a href="{% url 'courses:course_detile_view' course.id %}">{{course.title}}</a>
 
 
             <img src="{{course.image.url}}" alt="">

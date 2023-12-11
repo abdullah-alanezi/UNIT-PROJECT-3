@@ -14,6 +14,8 @@ class ExpertProfile(models.Model):
 
 
 class ExpertExperience(models.Model):
+    experience_fields =models.TextChoices("experience_field",['programers',"Story","Poetry"])
     user= models.ForeignKey(User,on_delete=models.CASCADE)
     experience = models.CharField(max_length=255)
     experience_years =models.IntegerField()
+    experience_field =models.CharField(max_length=56,choices = experience_fields.choices, default="Story")

@@ -8,10 +8,12 @@ from courses.models import Course
 def experts_view(request:HttpRequest):
     try:
         experts_users = User.objects.filter(groups__name='Experts')
-        experts_course = Course.objects.filter()
-        print(experts_course)
+        
+        
     except Exception:
         pass
     
     
     return render(request,'experts/experts.html',{'experts_users':experts_users})
+
+

@@ -36,6 +36,7 @@ def logout_view(request:HttpRequest):
         return redirect('users:login_view')
 
 def profile_view(request:HttpRequest,user_id):
+
     try:
         experts=User.objects.filter(groups__name='Experts')
 
@@ -81,3 +82,21 @@ def update_profile_view(request:HttpRequest):
         except Exception as e:
             msg = f"something went wrong {e}"
     return render(request,'users/update.html',{'msg':msg})
+
+
+def add_experience(request:HttpRequest,user_id):
+
+    expert_user =User.objects.get(id=user_id)
+    if request.method =='POST':
+
+        expert_experience=ExpertExperience(user=expert_user,experience=request.POST['experience'],experience_years=request.POST['experience_years'])
+        expert_experience.save()
+    return redirect('users:profile_view',user_id)
+
+
+def delete_experience(request:HttpRequest,experience_id):
+
+    
+    expert_experience=ExpertExperience.objects.get(id=experience_id)
+    expert_experience.delete()
+    return redirect('users:profile_view',request.user.id)

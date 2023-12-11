@@ -1,0 +1,22 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+  <h2>Subscribed Courses</h2>
+
+  {% if subscribed_courses %}
+    <ul>
+      {% for course in subscribed_courses %}
+        <li>{{ course.title }}</li>
+        <div>
+            <form method="post" style="display: inline;">
+                {% csrf_token %}
+                <input type="hidden" name="unsubscribe_course_id" value="{{ course.id }}">
+                <button type="submit">Unsubscribe</button>
+              </form>
+        </div>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>You haven't subscribed to any courses yet.</p>
+  {% endif %}
+{% endblock %}

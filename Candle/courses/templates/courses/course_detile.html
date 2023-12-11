@@ -1,0 +1,45 @@
+
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}Course Detile{% endblock %}
+
+
+{% block content %}
+
+<div class="container" >
+    <div class="row">
+        {% if msg %}
+        {{msg}}
+        {% endif %}
+        <div class="col">
+            
+            {{course.title}}
+        {% if request.user.is_authenticated %}    
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit" name="subscribe">Subscribe</button>
+        </form>
+        {% endif %}
+
+            <img src="{{course.image.url}}" alt="">
+            
+            {% for content in course_content %}
+            <h1>{{content.video_title}}</h1>
+            <p>{{content.description}}</p>
+            <video width="640" height="360" controls>
+                <source src="{{content.video_file.url}}" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            
+
+            {% if request.user.is_authenticated and perms.courses.add_course %}
+            <a href="{% url 'courses:delete_cours_econtent' content.id %}" class="btn btn-danger">delete</a>     
+              {% endif %}
+            {% endfor %}
+            
+        </div>
+    </div>
+</div>
+
+{% endblock %}

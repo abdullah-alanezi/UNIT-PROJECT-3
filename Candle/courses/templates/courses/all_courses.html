@@ -14,8 +14,9 @@
         {% endif %}
         <div class="col">
             {% for course in courses %}
-            {{course.title}}
-            <img src="{{course.image.url}}" alt="">
+            <img src="{{course.image.url}}" alt=""><br>
+            <a href="{% url 'courses:course_detile_view' course.id %}">{{course.title}}</a>
+            
             {% endfor %}
             
         </div>

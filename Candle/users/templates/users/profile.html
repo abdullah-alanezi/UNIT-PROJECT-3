@@ -17,9 +17,11 @@
           <div>
             <h2 class="profile-title">{{user.username}}</h2>
           </div>
+          {% if request.user.is_authenticated and request.user.id == user.id %}
           <div>
             <a class="btn btn-primary" href="{% url 'users:update_profile_view' %}">Update Profile</a>
           </div>
+          {% endif %}
         </div>
         
         <div class="row">
@@ -44,8 +46,22 @@
 </section>
 {% if user in experts %}  
 <div class="section">
+    <hr>
     <div class="container cc-education">
-      <div class="h4 text-center mb-4 title">Experiance</div>
+      <div class="d-flex justify-content-between">
+        <div class="h4 text-center mb-4 title">Experiance</div>
+        
+        {% if request.user.is_authenticated and request.user.id == user.id %}
+        <div>
+          <!-- Button trigger modal -->
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Add experience
+          </button>          
+          
+        </div>
+        {% endif %}
+      </div>
+      {% if experiences.count >= 0 %}
       {% for ex in experiences %}
   
       <div class="card">
@@ -58,19 +74,72 @@
           </div>
           <div class="col-md-9" data-aos="fade-left" data-aos-offset="50" data-aos-duration="500">
             <div class="card-body">
-              <div class="h5">experience years</div>
-              <p class="category">{{ex.experience_years}}</p>
+              <div class="d-flex justify-content-between" >
+                  <div><h5>Experience Years</h5>
+                    <p class="category">{{ex.experience_years}}</p>
+                  </div>
+
+                  <div>
+                    {% if request.user.is_authenticated and request.user.id == user.id %}
+                    <div>
+                       
+                      <a href="{% url 'users:delete_experience' ex.id %}" class="btn btn-danger">delete</a>       
+
+                    </div>
+                    {% endif %}                   
+                  </div>
+                  
+              </div>
              
             </div>
           </div>
         </div>
       </div>
+
   
       {% endfor %}
   
-  
-   
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Add Experience</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="{% url 'users:add_experience' user.id %}" method="POST">
+          {% csrf_token %}
+          <div class="d-flex flex-row align-items-center mb-4">
+            <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+            <div class="form-outline flex-fill mb-0">
+              <label class="form-label" for="form3Example1c">Experience</label>
+              <input type="text" name="experience" id="form3Example1c" class="form-control"> 
+            </div>
+          </div>
+          <div class="d-flex flex-row align-items-center mb-4">
+            <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+            <div class="form-outline flex-fill mb-0">
+              <label class="form-label" for="form3Example1c">Years Of Experience</label>
+              <input type="number" name="experience_years" id="form3Example1c" class="form-control"> 
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Add Experience</button>
+          </div>          
+        </form>
+      </div>
+
+
+  </div> 
+
+</div>
+
     </div>
+    {% endif %}
   </div>
 {% endif %}
 {% endblock %}
