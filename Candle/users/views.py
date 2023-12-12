@@ -64,7 +64,7 @@ def update_profile_view(request:HttpRequest):
                 try:
                     profile = request.user.expertprofile
                 except Exception as e:
-                    profile = ExpertProfile(user=user, bio=request.POST["bio"])
+                    profile = ExpertProfile(user=user, bio=request.POST["bio"],experience_field=request.POST['experience_field'])
                     profile.save()
 
 
@@ -81,7 +81,7 @@ def update_profile_view(request:HttpRequest):
             msg = f"Please select another username"
         except Exception as e:
             msg = f"something went wrong {e}"
-    return render(request,'users/update.html',{'msg':msg})
+    return render(request,'users/update.html',{'msg':msg,'experience_field':ExpertProfile.experience_fields.choices})
 
 
 def add_experience(request:HttpRequest,user_id):

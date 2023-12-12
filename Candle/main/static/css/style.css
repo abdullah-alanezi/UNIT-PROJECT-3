@@ -1,0 +1,23 @@
+.video-container {
+    position: relative;
+  }
+
+  .content-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    text-align: center;
+  }
+  
+
+  .img-brand{
+    width:40px;
+    height:40px;
+    transition: 0.5s;
+    border-radius: 20px;
+}
+.img-brand:hover{
+    transform: rotate(360deg);
+}

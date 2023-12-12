@@ -8,13 +8,15 @@
 
 <div class="container" >
     <div class="row">
-        <div class="experts-field" >
-            
+        <div class="filter-experts">
+            <a href="{% url 'experts:experts_view' %}">ALL</a>
+            {% for key , value in experience_field %}
+            <a style="width: 100%; text-decoration: none;" class="border-20 border bg-primary text-white p-3 text-center"  href="{% url 'experts:experts_view'%}?search={{key}}">{{value}}</a>  
+          {% endfor %}
         </div>
-
         <div class="col">
-            {% for user in experts_users %}
-            <a href="{% url 'users:profile_view' user.id %}">{{user.username}}</a>
+            {% for expert in experts_users %}
+            <a class="animate__heartBeat" href="{% url 'users:profile_view' expert.user.id %}">{{expert.user.username}}</a>
             {{user.email}}
             
             

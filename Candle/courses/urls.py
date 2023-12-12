@@ -13,5 +13,5 @@ urlpatterns= [
     path('update/course/<course_id>/',views.update_course,name='update_course'),
     path('course/detile/<course_id>',views.course_detile_view,name='course_detile_view'),
     path('subscribed-courses/',views.subscribed_courses, name='subscribed_courses'),
-    path('delete/course/content/<content_id>/',views.delete_cours_econtent,name='delete_cours_econtent')
+    path('delete/course/content/<content_id>/',views.delete_course_content,name='delete_course_content')
 ]

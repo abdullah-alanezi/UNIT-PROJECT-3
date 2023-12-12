@@ -25,4 +25,5 @@ urlpatterns = [
     path('users/',include('users.urls')),
     path('experts/',include('experts.urls')),
     path('courses/',include('courses.urls')),
+    path('chat/',include('chat.urls')),
 ] + static(settings.MEDIA_URL,document_root =settings.MEDIA_ROOT)   

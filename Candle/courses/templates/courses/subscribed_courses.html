@@ -6,7 +6,7 @@
   {% if subscribed_courses %}
     <ul>
       {% for course in subscribed_courses %}
-        <li>{{ course.title }}</li>
+        <li><a href="{% url 'courses:course_detile_view' course.id %}">{{ course.title }}</a></li>
         <div>
             <form method="post" style="display: inline;">
                 {% csrf_token %}

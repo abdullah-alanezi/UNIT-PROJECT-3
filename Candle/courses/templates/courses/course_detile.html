@@ -34,7 +34,7 @@
             
 
             {% if request.user.is_authenticated and perms.courses.add_course %}
-            <a href="{% url 'courses:delete_cours_econtent' content.id %}" class="btn btn-danger">delete</a>     
+            <a href="{% url 'courses:delete_course_content' content.id %}" class="btn btn-danger">delete</a>     
               {% endif %}
             {% endfor %}
             

@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-
+import datetime
 # Create your models here.
 
 class Course(models.Model):
@@ -8,6 +8,7 @@ class Course(models.Model):
     subcriptions = models.ManyToManyField(User, related_name="subscriptions")
     title = models.CharField(max_length=255)
     image = models.ImageField(upload_to='images/',default="images/default.jpg")
+
 
     def __str__(self) -> str:
         return self.title

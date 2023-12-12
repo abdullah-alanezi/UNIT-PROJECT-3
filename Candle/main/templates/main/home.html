@@ -2,6 +2,16 @@
 {% load static %}
 
 {% block content %}
-
+<div class="jumbotron jumbotron-fluid video-container">
+    <video autoplay loop muted playsinline class="w-100">
+      
+      <source src="{% static 'videos/candle_book.mp4' %}" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+    <div class="content-overlay">
+      <h1 class="display-4 ">Illuminate Your Mind</h1>
+      <p class="lead">Ignite the Flame of Knowledge with Candle, Your Learning Companion.</p>
+    </div>
+  </div>
 
 {% endblock %}

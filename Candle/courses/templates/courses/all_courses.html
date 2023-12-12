@@ -12,14 +12,20 @@
         {% if msg %}
         {{msg}}
         {% endif %}
-        <div class="col">
-            {% for course in courses %}
+        {% for course in courses %}
+        <div class="col-4">
+            <div class="course">
+                <h2><a href="{% url 'courses:course_detile_view' course.id %}">{{course.title}}</a></h2>
+                <p>{{course.coursecontent}}</p>
+                <p class="author">Added by:<img src="" alt="Your Logo" width="40" height="40" class="d-inline-block align-top rounded-circle"> {{course.user.first_name}} {{course.user.last_name}} </p>
+            </div>
             <img src="{{course.image.url}}" alt=""><br>
-            <a href="{% url 'courses:course_detile_view' course.id %}">{{course.title}}</a>
             
-            {% endfor %}
+            
+            
             
         </div>
+        {% endfor %}
     </div>
 </div>
 

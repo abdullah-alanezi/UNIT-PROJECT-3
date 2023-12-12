@@ -46,8 +46,9 @@ def add_course_content(request:HttpRequest,course_id):
 def all_courses(request:HttpRequest):
 
     msg=None
-
+    
     try:
+        
         course = Course.objects.all()
     except Exception as e:
         msg =e
@@ -56,10 +57,13 @@ def all_courses(request:HttpRequest):
 
 def expert_course(request:HttpRequest):
 
-    
+    msg =None
     if request.user.is_authenticated and request.user.has_perm('courses.view_course'):
-        expert_course=Course.objects.filter(user=request.user)
-        return render(request,"courses/expert_course.html",{"expert_courses":expert_course})
+        try:
+            expert_course=Course.objects.filter(user=request.user)
+        except Exception as e:
+            msg=e
+        return render(request,"courses/expert_course.html",{"expert_courses":expert_course,'msg':msg})
     else:
         return redirect('main:no_premissions')
     
@@ -77,49 +81,63 @@ def delete_course(request:HttpRequest,course_id):
 
 
 def update_course(request:HttpRequest,course_id):
-    course =Course.objects.get(id=course_id)
-    
-     
-    if request.method =='post':
-        course.title=request.POST['title']
-        if 'image' in request.FILES:
-            course.image=request.FILES['image']
+
+    msg=None
+    try:
+        course =Course.objects.get(id=course_id)
+
+        if request.method =='post':
+            course.title=request.POST['title']
+            if 'image' in request.FILES:
+                course.image=request.FILES['image']
+            
+            course.save()
+            return redirect('courses:expert_course')
         
-        course.save()
-        return redirect('courses:expert_course')
+    except Exception as e:
+        msg = e
 
     
-    return render(request,'courses/update_course.html',{'course':course})
+    return render(request,'courses/update_course.html',{'course':course,'msg':msg})
 
 
 def course_detile_view(request:HttpRequest,course_id):
-    course = Course.objects.get(id=course_id)
-    course_content = CourseContent.objects.filter(course=course)
-    if request.method == 'POST':
-        if request.user.is_authenticated:
-            if 'subscribe' in request.POST:
-                course.subcriptions.add(request.user)
 
-    return render(request,'courses/course_detile.html',{'course_content':course_content,'course':course})
+    msg=None
+    try:
+        course = Course.objects.get(id=course_id)
+        course_content = CourseContent.objects.filter(course=course)
+        if request.method == 'POST':
+            if request.user.is_authenticated:
+                if 'subscribe' in request.POST:
+                    course.subcriptions.add(request.user)
+    except Exception as e:
+        msg=e
+
+    return render(request,'courses/course_detile.html',{'course_content':course_content,'course':course,'msg':msg})
 
 
 def subscribed_courses(request:HttpRequest):
     user = request.user
-    subscribed_courses = user.subscriptions.all()
+    msg =None
+    try:
+        subscribed_courses = user.subscriptions.all()
 
 
-    if request.method == 'POST':
-        # Assuming you have a form or button to handle unsubscription
-        course_id_to_unsubscribe = request.POST.get('unsubscribe_course_id')
-        if course_id_to_unsubscribe:
-            course = course_id_to_unsubscribe
-            user.subscriptions.remove(course)
+        if request.method == 'POST':
+            # Assuming you have a form or button to handle unsubscription
+            course_id_to_unsubscribe = request.POST.get('unsubscribe_course_id')
+            if course_id_to_unsubscribe:
+                course = course_id_to_unsubscribe
+                user.subscriptions.remove(course)
+    except Exception as e:
+        msg = e
 
-    return render(request, 'courses/subscribed_courses.html', {'subscribed_courses': subscribed_courses})
+    return render(request, 'courses/subscribed_courses.html', {'subscribed_courses': subscribed_courses,'msg':msg})
 
 
 
-def delete_cours_econtent(request:HttpRequest,content_id):
+def delete_course_content(request:HttpRequest,content_id):
 
     msg=None
     if request.user.is_authenticated and request.user.has_perm('courses.delete_course'):
