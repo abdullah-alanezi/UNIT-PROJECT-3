@@ -8,7 +8,8 @@ class Course(models.Model):
     subcriptions = models.ManyToManyField(User, related_name="subscriptions")
     title = models.CharField(max_length=255)
     image = models.ImageField(upload_to='images/',default="images/default.jpg")
-
+    description = models.TextField()
+    addition_time = models.DateTimeField(auto_now_add=True)
 
     def __str__(self) -> str:
         return self.title

@@ -3,20 +3,22 @@
 {% block content %}
   <h2>Subscribed Courses</h2>
 
-  {% if subscribed_courses %}
+  {% if subscribed_courses.count > 0 %}
     <ul>
       {% for course in subscribed_courses %}
         <li><a href="{% url 'courses:course_detile_view' course.id %}">{{ course.title }}</a></li>
         <div>
+          {% if request.user.is_authenticated and not perms.courses.add_course  %}
             <form method="post" style="display: inline;">
                 {% csrf_token %}
                 <input type="hidden" name="unsubscribe_course_id" value="{{ course.id }}">
                 <button type="submit">Unsubscribe</button>
               </form>
+              {% endif%}
         </div>
       {% endfor %}
     </ul>
   {% else %}
-    <p>You haven't subscribed to any courses yet.</p>
+    <p>You haven't subscribed to any courses yet.</p> 
   {% endif %}
 {% endblock %}

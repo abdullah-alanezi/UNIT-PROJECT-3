@@ -53,7 +53,9 @@
                               <div class="d-flex flex-row align-items-center mb-4">
                                 <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
                                 <div class="form-outline flex-fill mb-0">
+                                  {% if request.user.is_authenticated and perms.courses.add_coursecontent %}
                                   <label class="form-label" for="form3Example4c">Experience Field</label>
+                                  {% endif %}
                                   {% for key , value in experience_field %}
                                   <div class="form-check">
                                     <input class="form-check-input" type="radio" name="experience_field" value="{{value}}" id="{{key}}">

@@ -1,8 +1,7 @@
-.video-container {
-    position: relative;
-  }
+
 
   .content-overlay {
+    width: 100%;
     position: absolute;
     top: 50%;
     left: 50%;

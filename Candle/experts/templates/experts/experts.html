@@ -3,25 +3,38 @@
 
 {% block title %}Experts{% endblock %}
 
-
 {% block content %}
 
-<div class="container" >
+<div class="container">
     <div class="row">
-        <div class="filter-experts">
-            <a href="{% url 'experts:experts_view' %}">ALL</a>
-            {% for key , value in experience_field %}
-            <a style="width: 100%; text-decoration: none;" class="border-20 border bg-primary text-white p-3 text-center"  href="{% url 'experts:experts_view'%}?search={{key}}">{{value}}</a>  
-          {% endfor %}
+        <div class="col-md-3">
+            <div class=" d-flex flex-column">
+                <a href="{% url 'experts:experts_view' %}" class="filter-link btn btn-primary">ALL</a>
+                {% for key, value in experience_field %}
+                    <a href="{% url 'experts:experts_view' %}?search={{ key }}" class="filter-link btn btn-light border-20 my-2">{{ value }}</a>  
+                {% endfor %}
+            </div>
         </div>
-        <div class="col">
-            {% for expert in experts_users %}
-            <a class="animate__heartBeat" href="{% url 'users:profile_view' expert.user.id %}">{{expert.user.username}}</a>
-            {{user.email}}
-            
-            
-            {% endfor %}
-            
+        <div class="col-md-9">
+            <div class="row">
+                {% for expert in experts_users %}
+                    <div class="col-md-4 mb-4 text-center ">
+                        <div class="card">
+                            <img src="{{ expert.user.expertprofile.avatar.url }}" class="card-img-top" alt="{{ expert.user.first_name }}">
+                            <div class="card-body">
+                                <h4 class="card-title">
+                                     {{ expert.user.first_name }} {{ expert.user.last_name }}
+                                </h4>
+                                <div class="d-flex justify-content-between" >
+                                    <small><a  href="{% url 'users:profile_view' expert.user.id %}" class="filter-link btn btn-sm btn-light border-20 my-2">View Profile</a></small>
+                                    <small><a  href="{% url 'courses:expert_course' expert.user.id %}" class="filter-link btn btn-sm btn-light border-20 my-2">View Courses</a></small>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
         </div>
     </div>
 </div>

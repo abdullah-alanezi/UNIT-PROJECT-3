@@ -1,45 +1,82 @@
-
 {% extends 'main/base.html' %}
 {% load static %}
 
-{% block title %}Course Detile{% endblock %}
-
+{% block title %}Course Detail{% endblock %}
 
 {% block content %}
-
-<div class="container" >
+<div class="container mt-4">
     <div class="row">
-        {% if msg %}
-        {{msg}}
-        {% endif %}
-        <div class="col">
-            
-            {{course.title}}
-        {% if request.user.is_authenticated %}    
-        <form method="post">
-            {% csrf_token %}
-            <button type="submit" name="subscribe">Subscribe</button>
-        </form>
-        {% endif %}
+        <div class="col-md-8 text-center">
+            <h1 class="mb-4">{{ course.title }}</h1>
 
-            <img src="{{course.image.url}}" alt="">
-            
-            {% for content in course_content %}
-            <h1>{{content.video_title}}</h1>
-            <p>{{content.description}}</p>
-            <video width="640" height="360" controls>
-                <source src="{{content.video_file.url}}" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
-            
+            {% if msg %}
+            <div class="alert alert-info" role="alert">
+                {{ msg }}
+            </div>
+            {% endif %}
 
-            {% if request.user.is_authenticated and perms.courses.add_course %}
-            <a href="{% url 'courses:delete_course_content' content.id %}" class="btn btn-danger">delete</a>     
-              {% endif %}
-            {% endfor %}
-            
+            <img src="{{ course.image.url }}" alt="{{ course.title }}" class="img-fluid mb-4">
+
+            {% if request.user.is_authenticated and not perms.courses.add_course %}
+                <form method="post" class="mb-3">
+                    {% csrf_token %}
+                    <button type="submit" name="subscribe" class="btn btn-primary">Subscribe</button>
+                </form>
+            {% endif %}
+        </div>
+
+        <div class="col-md-4">
+            {% if request.user.is_authenticated and perms.courses.add_coursecontent and course.user.id == request.user.id %}
+                <a href="{% url 'courses:add_course_content' course.id %}" class="btn btn-primary btn-block mb-3">Add Content</a>
+            {% endif %}
         </div>
     </div>
-</div>
+<hr>
+    <div class="row">
+        {% for content in course_content %}
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="card-title">{{ content.video_title }}</h2>
+                        
+                        <video width="100%" height="auto" controls class="mb-3">
+                            <source src="{{ content.video_file.url }}" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                        
+                        <p class="card-text">{{ content.description }}</p>
+    
+                        {% if request.user.is_authenticated and perms.courses.add_coursecontent %}
+                            <!-- Delete Button with Modal Trigger -->
+                            <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal{{ content.id }}">
+                                Delete
+                            </button>
 
+                            <!-- Delete Modal -->
+                            <div class="modal fade" id="deleteModal{{ content.id }}" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel{{ content.id }}" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="deleteModalLabel{{ content.id }}">Confirm Deletion</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Are you sure you want to delete "{{ content.video_title }}"?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            <a href="{% url 'courses:delete_course_content' content.id %}" class="btn btn-danger">Delete</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
 {% endblock %}

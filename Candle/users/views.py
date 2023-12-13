@@ -36,24 +36,29 @@ def logout_view(request:HttpRequest):
         return redirect('users:login_view')
 
 def profile_view(request:HttpRequest,user_id):
-
+    msg=None
     try:
         experts=User.objects.filter(groups__name='Experts')
 
         user = User.objects.get(id=user_id)
         experiences = ExpertExperience.objects.filter(user=user)
-    except Exception:
-        pass
+    except Exception as e:
+
+        msg=e
     
     return render(request,'users/profile.html',{"user":user,'experts':experts,'experiences':experiences})
 
 
 def update_profile_view(request:HttpRequest):
     msg = None
+    experience_field=None
+    if request.user.has_perm('experts.add_expertexperience'):
 
-    if request.method == "POST":
-        try:
-            if request.user.is_authenticated:
+        experience_field = ExpertProfile.experience_fields.choices
+    if request.user.is_authenticated:
+        if request.method == "POST":
+            try:
+            
                 user : User = request.user
                 user.first_name = request.POST["first_name"]
                 user.last_name = request.POST["last_name"]
@@ -74,24 +79,30 @@ def update_profile_view(request:HttpRequest):
                 profile.save()
 
                 return redirect("users:profile_view", user_id = request.user.id)
+            
 
-            else:
-                return redirect("users:login_view")
-        except IntegrityError as e:
-            msg = f"Please select another username"
-        except Exception as e:
-            msg = f"something went wrong {e}"
-    return render(request,'users/update.html',{'msg':msg,'experience_field':ExpertProfile.experience_fields.choices})
+    
+                
+            except IntegrityError as e:
+                msg = f"Please select another username"
+            except Exception as e:
+
+                msg = e
+    else:
+        return redirect("main:no_premissions")
+
+    return render(request,'users/update.html',{'msg':msg,'experience_field':experience_field})
 
 
 def add_experience(request:HttpRequest,user_id):
 
     expert_user =User.objects.get(id=user_id)
-    if request.method =='POST':
+    if request .user.is_authenticated and request.user.has_perm('experts.add_expertexperience'):
+        if request.method =='POST':
 
-        expert_experience=ExpertExperience(user=expert_user,experience=request.POST['experience'],experience_years=request.POST['experience_years'])
-        expert_experience.save()
-    return redirect('users:profile_view',user_id)
+            expert_experience=ExpertExperience(user=expert_user,experience=request.POST['experience'],experience_years=request.POST['experience_years'])
+            expert_experience.save()
+        return redirect('users:profile_view',user_id)
 
 
 def delete_experience(request:HttpRequest,experience_id):

@@ -4,29 +4,39 @@
 
 {% block title %}All Courses{% endblock %}
 
-
 {% block content %}
 
-<div class="container" >
-    <div class="row">
-        {% if msg %}
-        {{msg}}
-        {% endif %}
-        {% for course in courses %}
-        <div class="col-4">
-            <div class="course">
-                <h2><a href="{% url 'courses:course_detile_view' course.id %}">{{course.title}}</a></h2>
-                <p>{{course.coursecontent}}</p>
-                <p class="author">Added by:<img src="" alt="Your Logo" width="40" height="40" class="d-inline-block align-top rounded-circle"> {{course.user.first_name}} {{course.user.last_name}} </p>
-            </div>
-            <img src="{{course.image.url}}" alt=""><br>
-            
-            
-            
-            
+<div class="container">
+    {% if courses.count != 0 %}
+        <div class="row m-3">
+            {% for course in courses %}
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        <img  style=" object-fit: contain;" src="{{ course.image.url }}" class="card-img-top" alt="{{ course.title }}">
+                        <div class="card-body">
+                            <h4 class="card-title text-center">{{ course.title }}</h4>
+                            <hr>
+                            <p class="card-text">{{ course.description }}</p>
+                        </div>
+                        <div style="font-size:smaller" class="card-footer d-flex justify-content-between ">
+                            <small class="text-muted">Added by:<img src="{{ course.user.expertprofile.avatar.url }}" alt="Avatar" width="20" height="20" class="rounded-circle">{{ course.user.first_name }} {{ course.user.last_name }}</small>
+                            <small>{{course.addition_time}}</small>
+                        </div>
+                        <div class="text-center">
+                            <a  href="{% url 'courses:course_detile_view' course.id %}" class="btn btn-sm btn-primary w-100">View Course detail</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
         </div>
-        {% endfor %}
-    </div>
+    {% else %}
+        <div class="alert alert-info" role="alert">
+            <p>There are no courses yet.</p>
+        </div>
+    {% endif %}
 </div>
 
 {% endblock %}
+
+
+
