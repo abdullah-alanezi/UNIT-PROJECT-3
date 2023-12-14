@@ -129,9 +129,19 @@ Base on what you’ve learned until now , create a project of your choosing. Imp
 
 
 ## Edit the README.md file to include (include the info at the top):
-- Project Name
-- Project Description
-- Features list.
+
+##  Project Name
+- Candle
+
+
+## Project Description
+Educational Platform 
+
+## Features list.
+
+- Experts User can added,delete, and update courses.
+- user can view courses and add to favorite.
+- user can view experts abd see their profile  
 
  
 
